@@ -5,8 +5,6 @@
     <title>Private Practice</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -16,143 +14,65 @@
         <div class="row">
             <!--DOCTOR-->
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
                         <div class="frontside">
                             <div class="card">
                                 <div class="card-body text-center">
                                     <p><img class=" img-fluid" src="http://mewarhospitals.com/wp-content/uploads/2015/08/23420-200.png" alt="card image"></p>
                                     <h4 class="card-title">For doctors</h4>
-                                    <p class="card-text">Sign in as doctor</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Doctors</h4>
-                                    <p class="card-text">If u r a doctor then U ARE LUCKY AS HELL BOI.</p>
+                                    <br/>
+                                    <p class="card-text">As doctor you can:</p>
+                                    <ul class="card-text" th:align="left">
+                                        <li>control your visits</li>
+                                        <li>update patient's history</li>
+                                        <li>create prescription and referrals</li>
+                                    </ul>
                                     <form class="card-text" method="get" action="doctor">
                                         <input type="submit" value="FOR DOCTORS" class="btn btn-default">
                                     </form>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-skype"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-google"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <!--Patient-->
+            <!--PATIENT-->
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_02.png" alt="card image"></p>
-                                    <h4 class="card-title">For Patients</h4>
-                                    <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Patients</h4>
-                                    <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-skype"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-google"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="frontside">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="https://d30y9cdsu7xlg0.cloudfront.net/png/848688-200.png" alt="card image"></p>
+                            <h4 class="card-title">For patients</h4>
+                            <br/>
+                            <p class="card-text">As patient you can:</p>
+                            <ul class="card-text" th:align="left">
+                                <li>register for visit</li>
+                                <li>check doctor's avaliable</li>
+                                <li>checking your history</li>
+                            </ul>
+                            <br/>
+                            <form class="card-text" method="get" action="doctor">
+                                <input type="submit" value="FOR PATIENTS" class="btn btn-default">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
             <!--NURSE-->
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_03.png" alt="card image"></p>
-                                    <h4 class="card-title">For nurses</h4>
-                                    <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Nurses</h4>
-                                    <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-skype"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                <i class="fa fa-google"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="frontside">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="https://cdn0.iconfinder.com/data/icons/dental-vol-2/48/69-512.png" alt="card image"></p>
+                            <h4 class="card-title">For nurses</h4>
+                            <br/>
+                            <p class="card-text">As nurse you can:</p>
+                            <ul class="card-text" th:align="left">
+                                <li>add new patient</li>
+                                <li>create patients history</li>
+                                <li>plan doctors work</li>
+                            </ul>
+                            <br/>
+                            <form class="card-text" method="get" action="nurse">
+                                <input type="submit" value="FOR NURSES" class="btn btn-default">
+                            </form>
                         </div>
                     </div>
                 </div>
