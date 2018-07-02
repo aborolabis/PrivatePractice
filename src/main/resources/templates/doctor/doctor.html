@@ -12,6 +12,7 @@
 <div class="container">
     <div class="card card-container">
         <form class="form-signin" th:action="@{/doctor}" method="post">
+            <p><img class="img-fluid" src="http://mewarhospitals.com/wp-content/uploads/2015/08/23420-200.png" alt="card image"></p>
             <div class="centre" th:if="${param.error}">
                 Invalid username and password.
             </div>

@@ -5,7 +5,7 @@ body{
 }
 
 .centre{
-    text-align: center;
+    text-align: center !important;
 }
 
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -28,13 +28,13 @@ body{
 }
 
 section {
-    padding: 60px 0;
+    padding: 40px 0;
 }
 
 section .section-title {
     text-align: center;
     color: midnightblue;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     text-transform: uppercase;
 }
 
@@ -87,6 +87,7 @@ section .section-title {
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
+    alignment: center;
 }
 
 .btn {

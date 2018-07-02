@@ -12,4 +12,9 @@ public class MainController {
     public String index (Model model){
         return "index";
     }
+
+    @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
+    public String login (Model model){
+        return "login";
+    }
 }

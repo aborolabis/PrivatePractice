@@ -8,9 +8,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DoctorController {
 
-    @RequestMapping(path = { "/doctor" }, method = RequestMethod.GET)
-    public String doctorLog(Model model) {
-        return "/doctor/doctor";
-    }
 
 }
