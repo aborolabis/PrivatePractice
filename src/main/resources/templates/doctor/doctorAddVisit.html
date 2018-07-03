@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Current Visit - Doctor panel - Private Practice</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<section class="pb-5">
+    <div class="container panel">
+        <h5 class="section-title h1">Private Practice</h5><br/><br/>
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href="/doctor/patients" role="button">All patients</a>
+            <a class="btn btn-primary" href="/doctor/visits" role="button">All visits</a>
+            <a class="btn btn-primary" href="/doctor/current" role="button">Current Visit</a>
+            <a class="btn btn-primary" href="#" role="button">Link</a>
+        </div>
+        <div class="options">
+            <form id="addNewVisitForm"
+                    th:action="@{/doctor/visits/add}"
+                  th:object="${visitForm}" method="POST">
+                Pick the date:
+                <input type="date" th:field="${visitForm.date}">
+                <select name="time" form="addNewVisitForm">
+                    <option th:each = "hour : ${hours}" th:utext="${hour.getTime()}" th:field="${visitForm.time}" th:value="Hours. + ${hour}">...</option>
+                </select><br/>
+                <input type="submit" value="Add visit"><br/>
+            </form>
+
+        </div>
+    </div>
+</section>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
+</body>
+</html>

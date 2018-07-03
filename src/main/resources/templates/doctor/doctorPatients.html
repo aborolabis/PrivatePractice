@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patients - Doctor Panel - Private Practice</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<section class="pb-5">
+    <div class="container panel">
+        <h5 class="section-title h1">Private Practice</h5><br/><br/>
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href="/doctor/patients" role="button">All patients</a>
+            <a class="btn btn-primary" href="/doctor/visits" role="button">All visits</a>
+            <a class="btn btn-primary" href="/doctor/current" role="button">Current Visit</a>
+            <a class="btn btn-primary" href="#" role="button">Link</a>
+        </div>
+        <div class="options">
+            <h1>All patients</h1>
+            <table border="1">
+                <tr>
+                    <th>First name:</th>
+                    <th>Last name:</th>
+                    <th>PESEL:</th>
+                    <th>Address:</th>
+                </tr>
+                <tr th:each = "patient : ${patients}">
+                    <td th:utext="${patient.firstName}">...</td>
+                    <td th:utext="${patient.lastName}">...</td>
+                    <td th:utext="${patient.pesel}">...</td>
+                    <td th:utext="${patient.address.street} + ' ' + ${patient.address.houseNumber} + '/' + ${patient.address.apartmentNumber}">...</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</section>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>
