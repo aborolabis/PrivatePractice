@@ -1,6 +1,7 @@
 package pl.sda.aborolabis.project.service;
 
 import org.springframework.stereotype.Service;
+import pl.sda.aborolabis.project.form.VisitForm;
 import pl.sda.aborolabis.project.model.Doctor;
 import pl.sda.aborolabis.project.model.Visit;
 
@@ -18,9 +19,11 @@ public interface DoctorService {
 
     Doctor createDoctor(Doctor doctor);
 
+    Doctor findCurrentDoctor();
+
     List<Visit> getAllVisits();
 
-    Doctor addVisit(Visit visit);
+    Doctor addVisit(VisitForm visitForm);
 
     Doctor deleteVisit(Visit visit);
 

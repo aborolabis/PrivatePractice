@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import pl.sda.aborolabis.project.Utils.TimeUtils;
 import pl.sda.aborolabis.project.exception.DoctorNotFoundException;
+import pl.sda.aborolabis.project.form.VisitForm;
 import pl.sda.aborolabis.project.model.Doctor;
 import pl.sda.aborolabis.project.model.Visit;
 import pl.sda.aborolabis.project.repository.DoctorRepository;
 import pl.sda.aborolabis.project.repository.VisitRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,20 +46,34 @@ public class DoctorServiceImpl  implements DoctorService {
     }
 
     @Override
-    public List<Visit> getAllVisits() {
+    public Doctor findCurrentDoctor() {
         Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) details).getUsername();
         Doctor doctor = doctorRepository.findByUsername(username).orElseThrow(() -> new DoctorNotFoundException());
-        List<Visit> listOfVisits = doctorRepository.findAll().stream().filter(doc -> doc.getId() == doctor.getId()).flatMap(doc -> doc.getWorkingHours().stream()).collect(Collectors.toList());
+        return doctor;
+    }
+
+
+    @Override
+    public List<Visit> getAllVisits() {
+        Doctor currentDoctor = findCurrentDoctor();
+        List<Visit> listOfVisits = doctorRepository.findAll().stream()
+                .filter(doc -> doc.getId() == currentDoctor.getId())
+                .flatMap(doc -> doc.getWorkingHours().stream())
+                .collect(Collectors.toList());
         return listOfVisits;
     }
 
     @Override
-    public Doctor addVisit(Visit visit) {
-        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) details).getUsername();
-        Doctor doctor = doctorRepository.findByUsername(username).orElseThrow(() -> new DoctorNotFoundException());
+    public Doctor addVisit(VisitForm visitForm) {
+        Visit visit = new Visit();
+
+        Doctor doctor = findCurrentDoctor();
+        LocalDateTime dateTime = TimeUtils.getLocalDateTimeFromVisitForm(visitForm);
+
         visit.setDoctor(doctor);
+        visit.setVisitTime(dateTime);
+
         Visit savedVisit = visitRepository.save(visit);
         doctor.setVisit(savedVisit);
         return doctorRepository.save(doctor);
@@ -64,10 +81,13 @@ public class DoctorServiceImpl  implements DoctorService {
 
     @Override
     public Doctor deleteVisit(Visit visit) {
-        Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        String username = ((UserDetails) details).getUsername();
-        Doctor doctor = doctorRepository.findByUsername(username).orElseThrow(() -> new DoctorNotFoundException());
-        Visit deletedVisit = doctor.getWorkingHours().stream().filter(v -> v.getDoctor().getId() == (visit.getDoctor().getId())).findFirst().orElseThrow(() -> new DoctorNotFoundException());
+        Doctor doctor = findCurrentDoctor();
+
+        Visit deletedVisit = doctor.getWorkingHours().stream()
+                .filter(v -> v.getDoctor().getId() == (visit.getDoctor().getId()))
+                .findFirst()
+                .orElseThrow(() -> new DoctorNotFoundException());
+
         doctor.deleteVisit(deletedVisit);
         return doctorRepository.save(doctor);
     }
