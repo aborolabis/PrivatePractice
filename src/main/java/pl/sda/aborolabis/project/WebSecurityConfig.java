@@ -7,10 +7,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.sda.aborolabis.project.handler.SuccessLoginHandler;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final SuccessLoginHandler successLoginHandler;
+
+    public WebSecurityConfig(SuccessLoginHandler successLoginHandler) {
+        this.successLoginHandler = successLoginHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -19,13 +26,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/doctor*").authenticated()
-                .antMatchers("/patient*").authenticated()
-                .antMatchers("/nurse*").authenticated()
+                .antMatchers("/doctor").access("hasAuthority('DOCTOR')")
+                .antMatchers("/doctor/*").access("hasAuthority('DOCTOR')")
+                .antMatchers("/patient").access("hasAuthority('PATIENT')")
+                .antMatchers("/patient/*").access("hasAuthority('PATIENT')")
+                .antMatchers("/nurse").access("hasAuthority('NURSE')")
+                .antMatchers("/nurse/*").access("hasAuthority('NURSE')")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/doctor/main")
+                .successHandler(successLoginHandler)
                 .permitAll()
                 .and()
                 .logout()
