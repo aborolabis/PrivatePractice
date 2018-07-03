@@ -1,11 +1,13 @@
 package pl.sda.aborolabis.project.form;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.sda.aborolabis.project.model.Hours;
 
 import java.time.LocalDate;
 
 public class VisitForm {
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     private Hours time;

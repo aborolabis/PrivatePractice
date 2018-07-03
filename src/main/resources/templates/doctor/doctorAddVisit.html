@@ -25,7 +25,7 @@
                 Pick the date:
                 <input type="date" th:field="${visitForm.date}">
                 <select name="time" form="addNewVisitForm">
-                    <option th:each = "hour : ${hours}" th:utext="${hour.getTime()}" th:field="${visitForm.time}" th:value="Hours. + ${hour}">...</option>
+                    <option th:each = "hour : ${hours}" th:utext="${hour.getTime()}" th:field="${visitForm.time}" th:value="${hour}">...</option>
                 </select><br/>
                 <input type="submit" value="Add visit"><br/>
             </form>
