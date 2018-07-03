@@ -6,14 +6,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.sda.aborolabis.project.Utils.TimeUtils;
 import pl.sda.aborolabis.project.exception.DoctorNotFoundException;
+import pl.sda.aborolabis.project.exception.UserNotFoundException;
+import pl.sda.aborolabis.project.form.PatientHistoryForm;
 import pl.sda.aborolabis.project.form.VisitForm;
 import pl.sda.aborolabis.project.model.Doctor;
+import pl.sda.aborolabis.project.model.PatientHistory;
 import pl.sda.aborolabis.project.model.Visit;
 import pl.sda.aborolabis.project.repository.DoctorRepository;
+import pl.sda.aborolabis.project.repository.PatientHistoryRepository;
 import pl.sda.aborolabis.project.repository.VisitRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +28,8 @@ public class DoctorServiceImpl  implements DoctorService {
     private DoctorRepository doctorRepository;
     @Autowired
     private VisitRepository visitRepository;
+    @Autowired
+    private PatientHistoryRepository patientHistoryRepository;
 
     @Override
     public List<Doctor> findAll() {
@@ -55,7 +62,7 @@ public class DoctorServiceImpl  implements DoctorService {
 
 
     @Override
-    public List<Visit> getAllVisits() {
+    public List<Visit> getAllVisitsForCurrentDoctor() {
         Doctor currentDoctor = findCurrentDoctor();
         List<Visit> listOfVisits = doctorRepository.findAll().stream()
                 .filter(doc -> doc.getId() == currentDoctor.getId())
@@ -79,6 +86,8 @@ public class DoctorServiceImpl  implements DoctorService {
         return doctorRepository.save(doctor);
     }
 
+
+
     @Override
     public Doctor deleteVisit(Visit visit) {
         Doctor doctor = findCurrentDoctor();
@@ -96,4 +105,5 @@ public class DoctorServiceImpl  implements DoctorService {
     public void deleteDoctor(Doctor doctor) {
         doctorRepository.delete(doctor);
     }
+
 }

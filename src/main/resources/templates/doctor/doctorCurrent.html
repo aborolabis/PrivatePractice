@@ -20,16 +20,23 @@
         </div>
             <div class="options">
                 <h1>Todays Visit</h1>
-                <table class="table">
+                <table class="table" th:align="center">
                     <tr>
                         <th scope="col">Visit Time:</th>
                         <th scope="col">Patient:</th>
                         <th scope="col">Edit visit:</th>
+                        <th scope="col">Completed</th>
                     </tr>
                     <tr th:each = "visit : ${todaysVisits}">
                         <td th:utext="${visit.visitTime}">...</td>
                         <td th:utext="${visit.patient} ? ${visit.patient.firstName} + ' ' + ${visit.patient.lastName} : '---'"></td>
-                        <td></td>
+                        <td>
+                            <p th:if="${isVisitCompl}" class="glyphicon glyphicon-ok"></p>
+                            <a th:if="!${isVisitCompl}" th:href="@{/doctor/current/edit(id=${visit.id})}" class="glyphicon glyphicon-pencil"></a>
+                        </td>
+                        <td>
+                            <p th:if="${isVisitCompl}" class="glyphicon glyphicon-ok"></p>
+                            <p th:if="!${isVisitCompl}" class="glyphicon glyphicon-remove"></p>  </td>
                     </tr>
                 </table>
             </div>

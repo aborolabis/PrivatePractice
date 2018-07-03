@@ -5,12 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.sda.aborolabis.project.form.PatientHistoryForm;
 import pl.sda.aborolabis.project.form.VisitForm;
 import pl.sda.aborolabis.project.model.Hours;
-import pl.sda.aborolabis.project.model.Visit;
 import pl.sda.aborolabis.project.service.CalendarService;
 import pl.sda.aborolabis.project.service.DoctorServiceImpl;
 import pl.sda.aborolabis.project.service.PatientServiceImpl;
+import pl.sda.aborolabis.project.service.VisitServiceImpl;
 
 @Controller
 public class DoctorController {
@@ -18,11 +20,13 @@ public class DoctorController {
     private final PatientServiceImpl patientService;
     private final DoctorServiceImpl doctorService;
     private final CalendarService calendarService;
+    private final VisitServiceImpl visitService;
 
-    public DoctorController(PatientServiceImpl patientService, DoctorServiceImpl doctorService, CalendarService calendarService) {
+    public DoctorController(PatientServiceImpl patientService, DoctorServiceImpl doctorService, CalendarService calendarService, VisitServiceImpl visitService) {
         this.patientService = patientService;
         this.doctorService = doctorService;
         this.calendarService = calendarService;
+        this.visitService = visitService;
     }
 
     @RequestMapping(path = { "/doctor" }, method = RequestMethod.GET)
@@ -43,7 +47,7 @@ public class DoctorController {
 
     @RequestMapping(path = {"doctor/visits"}, method = RequestMethod.GET)
     public String allVisits(Model model){
-        model.addAttribute("visits", doctorService.getAllVisits());
+        model.addAttribute("visits", doctorService.getAllVisitsForCurrentDoctor());
         return "doctor/doctorVisits";
     }
 
@@ -65,5 +69,20 @@ public class DoctorController {
     public String currentVisit(Model model){
         model.addAttribute("todaysVisits", calendarService.getTodaysVisits());
         return "doctor/doctorCurrent";
+    }
+
+    @RequestMapping(path = {"doctor/current/edit"}, method = RequestMethod.GET)
+    public String editCurrentVisit(Model model, @RequestParam("id") Long visitID){
+        model.addAttribute("visit", visitService.getVisitById(visitID));
+        model.addAttribute("patientHistoryForm", new PatientHistoryForm());
+        model.addAttribute("isVisitCompl", visitService.isVisitCompleted(visitService.getVisitById(visitID)));
+        return "doctor/doctorEditCurrent";
+    }
+
+    @RequestMapping(path = {"doctor/current/edit"}, method = RequestMethod.POST)
+    public String editCurrentVisit(@ModelAttribute("patientHistoryForm") PatientHistoryForm patientHistoryForm,
+                                   Model model){
+        visitService.updateVisit(patientHistoryForm);
+        return "redirect:/doctor/current";
     }
 }

@@ -11,9 +11,11 @@ public class PatientHistory {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="patient_id")
     private Patient patient;
 
     @ManyToOne
+    @JoinColumn(name="doctor_id")
     private Doctor doctor;
 
     private LocalDateTime visitDateTime;
@@ -23,9 +25,10 @@ public class PatientHistory {
     public PatientHistory() {
     }
 
-    public PatientHistory(Patient patient, Doctor doctor, String description) {
+    public PatientHistory(Patient patient, Doctor doctor, LocalDateTime visitDateTime, String description) {
         this.patient = patient;
         this.doctor = doctor;
+        this.visitDateTime = visitDateTime;
         this.description = description;
     }
 
@@ -47,6 +50,18 @@ public class PatientHistory {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getVisitDateTime() {
+        return visitDateTime;
+    }
+
+    public void setVisitDateTime(LocalDateTime visitDateTime) {
+        this.visitDateTime = visitDateTime;
     }
 
     public String getDescription() {

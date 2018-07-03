@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Current Visit - Doctor panel - Private Practice</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<section class="pb-5">
+    <div class="container panel">
+        <h5 class="section-title h1">Private Practice</h5><br/><br/>
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href="/doctor/patients" role="button">All patients</a>
+            <a class="btn btn-primary" href="/doctor/visits" role="button">All visits</a>
+            <a class="btn btn-primary" href="/doctor/current" role="button">Current Visit</a>
+            <a class="btn btn-primary" href="#" role="button">Link</a>
+        </div>
+        <div class="options">
+
+            <p th:object="${visit}"
+               th:utext="'Doctor: ' + ${visit.getDoctor().getFirstName()} + ' ' + ${visit.getDoctor().getLastName()}">...</p>
+            <br/>
+            <p th:object="${visit}"
+               th:utext="'Patient: ' + ${visit.getPatient().getFirstName()} + ' ' + ${visit.getPatient().getLastName()}">...</p>
+
+            <form th:action="@{/doctor/current/edit}"
+                  th:object="${patientHistoryForm}" method="POST">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Description:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="${patientHistoryForm.description}"></textarea>
+                </div><br/>
+                <input type="hidden" id="visitID" name="visitID" th:value="${visit.getId()}">
+                <input type="submit" value="Update visit"><br/>
+            </form>
+        </div>
+    </div>
+</section>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
+</body>
+</html>
